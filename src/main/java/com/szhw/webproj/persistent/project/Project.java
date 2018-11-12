@@ -1,17 +1,15 @@
 package com.szhw.webproj.persistent.project;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import java.util.List;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "declaration")
-public class Project {
+public class Project  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
     /*
     申报级别（SC1：校级一类，SC2：校级二类）
      */
@@ -31,7 +29,7 @@ public class Project {
     负责人手机号码
      */
     @Column
-    private String phoneNum;
+    private String phone;
     /*
     负责人邮箱
      */
@@ -43,17 +41,25 @@ public class Project {
     @Column
     private String specialty;
     /*
-    项目成员
+    项目成员最多5个
      */
     @Column
-    private List<String> members;
+    private String member1;
+    @Column
+    private String member2;
+    @Column
+    private String member3;
+    @Column
+    private String member4;
+    @Column
+    private String member5;
     /*
     立项承诺
      */
     @Column
     private String promise;
     /*
-    项目状态（0：未提交的新项目 1：等待初审 2：初审未通过 3：立项评审中 4：立项评审完成）
+    项目状态（0：未提交的新项目 1：等待初审 2：初审未通过 3：立项评审中 4：立项评审完成 ）
      */
     @Column(length = 2)
     private String state;
@@ -72,12 +78,27 @@ public class Project {
      */
     @Column(length = 1)
     private String approval;
+    /*
+    中期时间检查期限
+     */
+    @Column
+    private Date midCheckDate;
+    /*
+    中期检查说明
+     */
+    @Column
+    private String midCheckInfo;
+    /*
+    驳回原因说明
+     */
+    @Column
+    private String rejectInfo;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -105,12 +126,12 @@ public class Project {
         this.header = header;
     }
 
-    public String getPhoneNum() {
-        return phoneNum;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -129,12 +150,44 @@ public class Project {
         this.specialty = specialty;
     }
 
-    public List<String> getMembers() {
-        return members;
+    public String getMember1() {
+        return member1;
     }
 
-    public void setMembers(List<String> members) {
-        this.members = members;
+    public void setMember1(String member1) {
+        this.member1 = member1;
+    }
+
+    public String getMember2() {
+        return member2;
+    }
+
+    public void setMember2(String member2) {
+        this.member2 = member2;
+    }
+
+    public String getMember3() {
+        return member3;
+    }
+
+    public void setMember3(String member3) {
+        this.member3 = member3;
+    }
+
+    public String getMember4() {
+        return member4;
+    }
+
+    public void setMember4(String member4) {
+        this.member4 = member4;
+    }
+
+    public String getMember5() {
+        return member5;
+    }
+
+    public void setMember5(String member5) {
+        this.member5 = member5;
     }
 
     public String getPromise() {
@@ -175,5 +228,29 @@ public class Project {
 
     public void setApproval(String approval) {
         this.approval = approval;
+    }
+
+    public Date getMidCheckDate() {
+        return midCheckDate;
+    }
+
+    public void setMidCheckDate(Date midCheckDate) {
+        this.midCheckDate = midCheckDate;
+    }
+
+    public String getMidCheckInfo() {
+        return midCheckInfo;
+    }
+
+    public void setMidCheckInfo(String midCheckInfo) {
+        this.midCheckInfo = midCheckInfo;
+    }
+
+    public String getRejectInfo() {
+        return rejectInfo;
+    }
+
+    public void setRejectInfo(String rejectInfo) {
+        this.rejectInfo = rejectInfo;
     }
 }
