@@ -4,18 +4,24 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
  * @author HJF
- * @date 2018/11/16 19:10
+ * @date 2018/11/22 16:05
  */
 @Entity
 public class User {
     private int id;
     private String username;
     private String password;
+    private String department;
+    private String state;
     private String role;
+    private Timestamp createTime;
+    private Timestamp updateTime;
+    private String memo;
 
     @Id
     @Column(name = "id")
@@ -48,6 +54,26 @@ public class User {
     }
 
     @Basic
+    @Column(name = "department")
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    @Basic
+    @Column(name = "state")
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    @Basic
     @Column(name = "role")
     public String getRole() {
         return role;
@@ -55,6 +81,36 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Basic
+    @Column(name = "create_time")
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
+    @Basic
+    @Column(name = "update_time")
+    public Timestamp getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Timestamp updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @Basic
+    @Column(name = "memo")
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 
     @Override
@@ -65,11 +121,16 @@ public class User {
         return id == user.id &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password) &&
-                Objects.equals(role, user.role);
+                Objects.equals(department, user.department) &&
+                Objects.equals(state, user.state) &&
+                Objects.equals(role, user.role) &&
+                Objects.equals(createTime, user.createTime) &&
+                Objects.equals(updateTime, user.updateTime) &&
+                Objects.equals(memo, user.memo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, role);
+        return Objects.hash(id, username, password, department, state, role, createTime, updateTime, memo);
     }
 }

@@ -1,107 +1,39 @@
 package com.szhw.webproj.persistent.project;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
+import java.util.Objects;
 
+/**
+ * @author HJF
+ * @date 2018/11/22 15:54
+ */
 @Entity
-@Table(name = "declaration")
-public class Project  implements Serializable {
+public class Project {
+    private int id;
+    private String name;
+    private Integer header;
+    private String email;
+    private String phone;
+    private String level;
+    private String state;
+    private String specialty;
+    private String promise;
+    private Integer score;
+    private String comment;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    /*
-    申报级别（SC1：校级一类，SC2：校级二类）
-     */
-    @Column(length = 5)
-    private String level;
-    /*
-    项目名称
-     */
-    @Column
-    private String name;
-    /*
-    项目负责人(ID)
-     */
-    @Column
-    private String header;
-    /*
-    负责人手机号码
-     */
-    @Column
-    private String phone;
-    /*
-    负责人邮箱
-     */
-    @Column
-    private String email;
-    /*
-    所属专业
-     */
-    @Column
-    private String specialty;
-    /*
-    项目成员
-     */
-    @Column
-    private String members;
-    /*
-    立项承诺
-     */
-    @Column
-    private String promise;
-    /*
-    项目状态（0：未提交的新项目 1：等待初审 2：初审未通过 3：立项评审中 4：立项评审完成 ）
-     */
-    @Column(length = 2)
-    private String state;
-    /*
-    项目得分
-     */
-    @Column
-    private Integer score;
-    /*
-    专家评语
-     */
-    @Column
-    private String comment;
-    /*
-    是否立项("0":待定 "1":立项 "2":不立项)
-     */
-    @Column(length = 1)
-    private String approval;
-    /*
-    中期时间检查期限
-     */
-    @Column
-    private Date midCheckDate;
-    /*
-    中期检查说明
-     */
-    @Column
-    private String midCheckInfo;
-    /*
-    驳回原因说明
-     */
-    @Column
-    private String rejectInfo;
-
-    public Integer getId() {
+    @Column(name = "id")
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
+    @Basic
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -110,22 +42,18 @@ public class Project  implements Serializable {
         this.name = name;
     }
 
-    public String getHeader() {
+    @Basic
+    @Column(name = "header")
+    public Integer getHeader() {
         return header;
     }
 
-    public void setHeader(String header) {
+    public void setHeader(Integer header) {
         this.header = header;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
+    @Basic
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -134,30 +62,28 @@ public class Project  implements Serializable {
         this.email = email;
     }
 
-    public String getSpecialty() {
-        return specialty;
+    @Basic
+    @Column(name = "phone")
+    public String getPhone() {
+        return phone;
     }
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getMembers() {
-        return members;
+    @Basic
+    @Column(name = "level")
+    public String getLevel() {
+        return level;
     }
 
-    public void setMembers(String members) {
-        this.members = members;
+    public void setLevel(String level) {
+        this.level = level;
     }
 
-    public String getPromise() {
-        return promise;
-    }
-
-    public void setPromise(String promise) {
-        this.promise = promise;
-    }
-
+    @Basic
+    @Column(name = "state")
     public String getState() {
         return state;
     }
@@ -166,6 +92,28 @@ public class Project  implements Serializable {
         this.state = state;
     }
 
+    @Basic
+    @Column(name = "specialty")
+    public String getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
+    }
+
+    @Basic
+    @Column(name = "promise")
+    public String getPromise() {
+        return promise;
+    }
+
+    public void setPromise(String promise) {
+        this.promise = promise;
+    }
+
+    @Basic
+    @Column(name = "score")
     public Integer getScore() {
         return score;
     }
@@ -174,6 +122,8 @@ public class Project  implements Serializable {
         this.score = score;
     }
 
+    @Basic
+    @Column(name = "comment")
     public String getComment() {
         return comment;
     }
@@ -182,35 +132,26 @@ public class Project  implements Serializable {
         this.comment = comment;
     }
 
-    public String getApproval() {
-        return approval;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return id == project.id &&
+                Objects.equals(name, project.name) &&
+                Objects.equals(header, project.header) &&
+                Objects.equals(email, project.email) &&
+                Objects.equals(phone, project.phone) &&
+                Objects.equals(level, project.level) &&
+                Objects.equals(state, project.state) &&
+                Objects.equals(specialty, project.specialty) &&
+                Objects.equals(promise, project.promise) &&
+                Objects.equals(score, project.score) &&
+                Objects.equals(comment, project.comment);
     }
 
-    public void setApproval(String approval) {
-        this.approval = approval;
-    }
-
-    public Date getMidCheckDate() {
-        return midCheckDate;
-    }
-
-    public void setMidCheckDate(Date midCheckDate) {
-        this.midCheckDate = midCheckDate;
-    }
-
-    public String getMidCheckInfo() {
-        return midCheckInfo;
-    }
-
-    public void setMidCheckInfo(String midCheckInfo) {
-        this.midCheckInfo = midCheckInfo;
-    }
-
-    public String getRejectInfo() {
-        return rejectInfo;
-    }
-
-    public void setRejectInfo(String rejectInfo) {
-        this.rejectInfo = rejectInfo;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, header, email, phone, level, state, specialty, promise, score, comment);
     }
 }
