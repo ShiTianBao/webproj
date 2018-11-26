@@ -1,54 +1,45 @@
 package com.szhw.webproj.persistent.message;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.Objects;
 
 /**
+ * 站内消息Entity
  * @author HJF
- * @date 2018/11/12 18:17
+ * @date 2018/11/26 16:28
  */
 @Entity
 public class Message {
+    private int id;
+    private Byte isRead;
+    private String message;
+    private Integer recvId;
+    private Timestamp sendTime;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    /*
-    消息接收方id
-     */
-    @Column
-    private Integer receiver;
-    /*
-    消息内容
-     */
-    @Column
-    private String message;
-    /*
-    消息是否已读
-     */
-    @Column
-    private Boolean isRead;
-    /*
-    消息发送时间
-     */
-    @Column
-    private String sendDate;
-
-    public Integer getId() {
+    @Column(name = "id")
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getReceiver() {
-        return receiver;
+    @Basic
+    @Column(name = "is_read")
+    public Byte getIsRead() {
+        return isRead;
     }
 
-    public void setReceiver(Integer receiver) {
-        this.receiver = receiver;
+    public void setIsRead(Byte isRead) {
+        this.isRead = isRead;
     }
 
+    @Basic
+    @Column(name = "message")
     public String getMessage() {
         return message;
     }
@@ -57,19 +48,40 @@ public class Message {
         this.message = message;
     }
 
-    public Boolean getRead() {
-        return isRead;
+    @Basic
+    @Column(name = "recv_id")
+    public Integer getRecvId() {
+        return recvId;
     }
 
-    public void setRead(Boolean read) {
-        isRead = read;
+    public void setRecvId(Integer recvId) {
+        this.recvId = recvId;
     }
 
-    public String getSendDate() {
-        return sendDate;
+    @Basic
+    @Column(name = "send_time")
+    public Timestamp getSendTime() {
+        return sendTime;
     }
 
-    public void setSendDate(String sendDate) {
-        this.sendDate = sendDate;
+    public void setSendTime(Timestamp sendTime) {
+        this.sendTime = sendTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message1 = (Message) o;
+        return id == message1.id &&
+                Objects.equals(isRead, message1.isRead) &&
+                Objects.equals(message, message1.message) &&
+                Objects.equals(recvId, message1.recvId) &&
+                Objects.equals(sendTime, message1.sendTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, isRead, message, recvId, sendTime);
     }
 }
