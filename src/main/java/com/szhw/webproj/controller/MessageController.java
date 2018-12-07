@@ -1,8 +1,8 @@
 package com.szhw.webproj.controller;
 
 import com.szhw.webproj.common.RESTResult;
-import com.szhw.webproj.persistent.message.Message;
-import com.szhw.webproj.persistent.message.MessageRepository;
+import com.szhw.webproj.persistent.entity.Message;
+import com.szhw.webproj.persistent.repository.MessageRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,9 +1,9 @@
 package com.szhw.webproj.common.message;
 
-import com.szhw.webproj.persistent.message.Message;
-import com.szhw.webproj.persistent.message.MessageRepository;
-import com.szhw.webproj.persistent.user.User;
-import com.szhw.webproj.persistent.user.UserRepository;
+import com.szhw.webproj.persistent.entity.Message;
+import com.szhw.webproj.persistent.repository.MessageRepository;
+import com.szhw.webproj.persistent.entity.User;
+import com.szhw.webproj.persistent.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

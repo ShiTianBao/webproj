@@ -6,4 +6,9 @@ package com.szhw.webproj.common;
  */
 public interface GlobalConstant {
     int MENU_FATHER_ID = 0;
+
+    String SESSION_ATTR_KEY = "USER";
+
+    int USER_NOT_FOUND_CODE = 101;
+    int USER_PASSWORD_WRONG = 102;
 }

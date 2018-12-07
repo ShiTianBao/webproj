@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>菜单列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../layUI/frame/layui/css/layui.css">
+    <link rel="stylesheet" href="../layUI/frame/static/css/style.css">
+</head>
+<body>
+<!-- 工具集 -->
+<div class="my-btn-box">
+    <span class="fl">
+        <a class="layui-btn btn-add btn-default" id="btn-add" href="menu-add.html">添加</a>
+    </span>
+</div>
+<table id="tb_menu" lay-filter="tb_menu"></table>
+<script src="../layUI/frame/layui/layui.js"></script>
+<script type="text/javascript" src="../layUI/frame/static/js/vip_comm.js"></script>
+<script type="text/javascript">
+    layui.use('table', function () {
+        var table = layui.table,
+            layer = layui.layer,
+            $ = layui.jquery;
+        table.render({
+            elem: '#tb_menu',
+            height: 'full-60',
+            url: '/menu/list',
+            page: false,
+            cols: [[
+                {field: 'id', title: 'ID', sort: true, fixed: 'left'},
+                {field: 'fatherId', title: '父菜单ID'},
+                {field: 'url', title: 'URL'},
+                {field: 'name', title: '菜单名称'},
+                // {field: 'index', title: '排序索引', sort: true},
+                {field: 'icon', title: '图标'},
+                {fixed: 'right', title: '操作', toolbar: '#barOption', width: 250} //这里的toolbar值是模板元素的选择器
+            ]]
+        });
+        table.on('tool(tb_menu)', function (obj) {
+            var event = obj.event;
+            var data = obj.data;
+            if (event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+                    $.ajax('/menu/delete', {
+                        method: "GET",
+                        success: function (data) {
+                            if (data.code === 0) {
+                                layer.msg('删除成功', {icon: 1});
+                            } else {
+                                layer.msg(data.message, {icon: 2});
+                            }
+                        },
+                        fail: function () {
+                            layer.msg('删除失败', {icon: 2});
+                        }
+                    })
+                });
+            }
+        });
+    });
+</script>
+<!-- 表格操作按钮集 -->
+<script type="text/html" id="barOption">
+    <a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
+</script>
+</body>
+</html>
