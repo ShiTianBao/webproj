@@ -32,7 +32,7 @@ public class MenuController implements GlobalConstant {
     /**
      * 获取全部菜单项，子菜单作为父菜单的Children
      */
-    @PostMapping("/get")
+    @GetMapping("/get")
     @ResponseBody
     public List<MainMenu> getMenu() {
         List<Menu> resultMenuList = menuRepository.findAll();

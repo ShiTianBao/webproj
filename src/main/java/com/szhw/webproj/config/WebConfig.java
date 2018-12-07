@@ -17,12 +17,12 @@ public class WebConfig implements WebMvcConfigurer {
     @Resource
     UserLoginInterceptor userLoginInterceptor;
 
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(userLoginInterceptor)
-//                .addPathPatterns("/**")
-//                .excludePathPatterns("/", "index.html", "/css/**", "/js/**", "/layUI/**", "/image/**","/login");
-//    }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(userLoginInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/", "index.html", "/css/**", "/js/**", "/layUI/**", "/image/**", "/login");
+    }
 
     /**
      * 解决跨域时出现问题，添加跨域mapping为所有url

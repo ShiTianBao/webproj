@@ -12,7 +12,7 @@
 </head>
 <body>
 <div style="margin: 0 auto; width: 70px; height: 70px; margin-top: 50px;">
-    <img src="layUI/frame/static/image/logo.png" width="70px" height="70px">
+    <img src="/layUI/frame/static/image/logo.png" width="70px" height="70px">
 </div>
 <div class="login-main">
     <header class="layui-elip">登录项目管理平台</header>
@@ -57,6 +57,9 @@
 
 <script src="/layUI/frame/layui/layui.js"></script>
 <script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+    localStorage.host = 'localhost:8080';
+</script>
 <script type="text/javascript">
     layui.use(['form'], function () {
         var form = layui.form
