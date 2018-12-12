@@ -47,13 +47,13 @@ public class IndexController implements GlobalConstant {
         verifyUser.setAccount(user.getAccount());
         Optional<User> userOptional = userRepository.findOne(Example.of(verifyUser));
         if (!userOptional.isPresent()) {
-            result.setCode(USER_NOT_FOUND_CODE);
+            result.setCode(CODE_USER_NOT_FOUND);
             result.setMessage("用户不存在");
             return result;
         }
         verifyUser = userOptional.get();
         if (!verifyUser.getPassword().equals(user.getPassword())) {
-            result.setCode(USER_PASSWORD_WRONG);
+            result.setCode(CODE_USER_PASSWORD_WRONG);
             result.setMessage("密码错误");
             return result;
         }

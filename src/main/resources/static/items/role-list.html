@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>菜单管理</title>
+    <title>角色管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,15 +13,17 @@
 <!-- 工具集 -->
 <div class="my-btn-box">
     <span class="fl">
-        <a class="layui-btn btn-add btn-default" id="btn-add" href="menu-add.html">添加</a>
+        <a class="layui-btn btn-add btn-default" id="btn-add" href="role-add.html">添加</a>
     </span>
 </div>
 <table id="tb_menu" lay-filter="tb_menu"></table>
 <script src="../layUI/frame/layui/layui.js"></script>
 <script type="text/javascript" src="../layUI/frame/static/js/vip_comm.js"></script>
 <script type="text/javascript">
-    if (!localStorage.host) {
+    if (window.location.href.indexOf("8080") === -1) {
         localStorage.host = 'http://localhost:8080';
+    } else {
+        localStorage.host = '';
     }
 </script>
 <script type="text/javascript">
@@ -32,15 +34,11 @@
         table.render({
             elem: '#tb_menu',
             height: 'full-60',
-            url: localStorage.host + '/menu/list',
+            url: localStorage.host + '/role/list',
             page: false,
             cols: [[
                 {field: 'id', title: 'ID', sort: true, fixed: 'left'},
-                {field: 'fatherId', title: '父菜单ID'},
-                {field: 'url', title: 'URL'},
-                {field: 'menuName', title: '菜单名称'},
-                // {field: 'index', title: '排序索引', sort: true},
-                {field: 'icon', title: '图标'},
+                {field: 'roleName', title: '角色名称'},
                 {fixed: 'right', title: '操作', toolbar: '#barOption', width: 250} //这里的toolbar值是模板元素的选择器
             ]]
         });
@@ -52,8 +50,8 @@
                 layer.confirm('真的删除行么', function (index) {
                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                     layer.close(index);
-                    $.ajax(localStorage.host + '/menu/delete', {
-                        method: "GET",
+                    $.ajax(localStorage.host + '/role/delete', {
+                        method: "POST",
                         data: {id: data.id},
                         success: function (data) {
                             if (data.code === 0) {

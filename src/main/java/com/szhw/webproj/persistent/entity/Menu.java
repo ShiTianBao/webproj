@@ -1,31 +1,29 @@
 package com.szhw.webproj.persistent.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * @author HJF
- * @date 2018/12/6 14:09
+ * @date 2018/12/11 12:08
  */
 @Entity
 public class Menu {
-    private int id;
+    private Integer id;
     private int fatherId;
-    private int index;
+    private Integer sortIndex;
     private String icon;
-    private String name;
+    private String menuName;
     private String url;
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -40,13 +38,13 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "index")
-    public int getIndex() {
-        return index;
+    @Column(name = "sort_index")
+    public Integer getSortIndex() {
+        return sortIndex;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setSortIndex(Integer sortIndex) {
+        this.sortIndex = sortIndex;
     }
 
     @Basic
@@ -60,13 +58,13 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
+    @Column(name = "menu_name")
+    public String getMenuName() {
+        return menuName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
     }
 
     @Basic
@@ -86,14 +84,14 @@ public class Menu {
         Menu menu = (Menu) o;
         return id == menu.id &&
                 fatherId == menu.fatherId &&
-                index == menu.index &&
+                Objects.equals(sortIndex, menu.sortIndex) &&
                 Objects.equals(icon, menu.icon) &&
-                Objects.equals(name, menu.name) &&
+                Objects.equals(menuName, menu.menuName) &&
                 Objects.equals(url, menu.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fatherId, index, icon, name, url);
+        return Objects.hash(id, fatherId, sortIndex, icon, menuName, url);
     }
 }

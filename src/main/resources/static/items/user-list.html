@@ -31,7 +31,7 @@
 <div class="my-btn-box">
     <span class="fl">
         <a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delete-all">批量删除</a>
-        <a class="layui-btn btn-add btn-default" id="btn-add">添加</a>
+        <a class="layui-btn btn-add btn-default" id="btn-add" href="user-add.html">添加</a>
         <a class="layui-btn btn-add btn-default" id="btn-refresh"><i class="layui-icon">&#x1002;</i></a>
     </span>
 </div>
@@ -39,6 +39,13 @@
 <!-- 表格 -->
 <div id="tb-user"></div>
 <script type="text/javascript" src="../layUI/frame/layui/layui.js"></script>
+<script type="text/javascript">
+    if (!localStorage.host) {
+        localStorage.host = 'http://localhost:8080';
+    } else {
+        localStorage.host = '';
+    }
+</script>
 <script type="text/javascript">
 
     // layui方法
@@ -64,7 +71,7 @@
                 , {fixed: 'right', title: '操作', toolbar: '#barOption', width: 250} //这里的toolbar值是模板元素的选择器
             ]]
             , id: 'dataCheck'
-            , url: '/user/list'
+            , url: localStorage.host + '/user/list'
             , method: 'get'
             , page: false
             , limits: [30, 60, 90, 150, 300]

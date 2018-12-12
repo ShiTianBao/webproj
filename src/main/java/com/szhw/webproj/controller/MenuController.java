@@ -42,7 +42,7 @@ public class MenuController implements GlobalConstant {
         List<MainMenu> mainMenuList = new ArrayList<>(10);
 
         for (Menu menu : resultMenuList) {
-            if (menu.getFatherId() == MENU_FATHER_ID) {
+            if (menu.getFatherId() == ID_MENU_FATHER) {
                 MainMenu mainMenu = new MainMenu();
                 BeanUtils.copyProperties(menu, mainMenu);
                 mainMenuList.add(mainMenu);
@@ -66,7 +66,7 @@ public class MenuController implements GlobalConstant {
         return result;
     }
 
-    @GetMapping("/add")
+    @PostMapping("/add")
     @ResponseBody
     public RESTResult addMenu(Menu menu) {
         RESTResult result = new RESTResult();
@@ -78,6 +78,11 @@ public class MenuController implements GlobalConstant {
     @ResponseBody
     public RESTResult deleteMenu(Integer id) {
         RESTResult result = new RESTResult();
+        if (null == id) {
+            result.setCode(CODE_PARAM_MISS);
+            result.setMessage("参数缺失");
+            return result;
+        }
         menuRepository.deleteById(id);
         return result;
     }

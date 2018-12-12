@@ -4,19 +4,21 @@ function addMenu(menuList) {
     for (var i = 0, len = menuList.length; i < len; i++) {
         var mainMenuItem = menuList[i];
         console.log(mainMenuItem);
-        var name = mainMenuItem['name'];
+        var name = mainMenuItem['menuName'];
         var icon = mainMenuItem['icon'];
         var li = addMainMenu(menuSide, name, icon);
         var childrenMenuItems = mainMenuItem['children'];
         console.log("childrenMenuItem:", childrenMenuItems);
-        for (var j = 0; j < childrenMenuItems.length; ++j) {
-            var childMenuItem = childrenMenuItems[j];
-            console.log("childMenuItem:", childMenuItem);
-            name = childMenuItem['name'];
-            icon = childMenuItem['icon'];
-            var url = childMenuItem['url'];
-            console.log(name, icon);
-            addChildMenu(li, name, url, icon);
+        if (childrenMenuItems != null) {
+            for (var j = 0; j < childrenMenuItems.length; ++j) {
+                var childMenuItem = childrenMenuItems[j];
+                console.log("childMenuItem:", childMenuItem);
+                name = childMenuItem['menuName'];
+                icon = childMenuItem['icon'];
+                var url = childMenuItem['url'];
+                console.log(name, icon);
+                addChildMenu(li, name, url, icon);
+            }
         }
     }
     layui.element.init();

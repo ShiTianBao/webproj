@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>新增菜单</title>
+    <title>添加部门</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -12,33 +12,9 @@
 <body>
 <form class="layui-form">
     <div class="layui-form-item">
-        <label class="layui-form-label">父菜单</label>
-        <div class="layui-input-inline">
-            <select name="fatherId" id="select" lay-verify="required">
-                <option value="0">顶级菜单</option>
-            </select>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">URL</label>
-        <div class="layui-input-inline">
-            <input id="url" type="text" name="url" placeholder="(顶级菜单无URL)"
-                   autocomplete="off"
-                   class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
         <label class="layui-form-label">名称</label>
         <div class="layui-input-inline">
-            <input type="text" name="menuName" required lay-verify="required" placeholder=""
-                   autocomplete="off"
-                   class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">图标</label>
-        <div class="layui-input-inline">
-            <input type="text" name="icon" required lay-verify="required" placeholder=""
+            <input type="text" name="depName" required lay-verify="required" placeholder=""
                    autocomplete="off"
                    class="layui-input">
         </div>
@@ -61,28 +37,7 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $.ajax(localStorage.host + '/menu/get', {
-            method: "GET",
-            success: function (data) {
-                console.log(data);
-                for (var i = 0, len = data.length; i < len; i++) {
-                    var item = data[i];
-                    console.log("<option value='" + item.id + "'>" + item.menuName + "</option>");
-                    $('#select').append("<option value='" + item.id + "'>" + item.menuName + "</option>");
-                }
-                renderForm();
-            },
-            fail: function () {
-                console.log("GG");
-            }
-        });
-        $('#select').change(function (event) {
-            console.log('event', event);
-            var val = $(this).val();
-            if (val === '0') {
-                console.log('不能方url');
-            }
-        });
+        renderForm();
     });
 
     function renderForm() {
@@ -92,7 +47,7 @@
                 layer = layui.layer;
             form.on('submit(btn_submit)', function (data) {
                 console.log(data);
-                $.ajax(localStorage.host + '/menu/add', {
+                $.ajax(localStorage.host + '/dep/add', {
                     method: "POST",
                     data: data.field,
                     success: function (data) {

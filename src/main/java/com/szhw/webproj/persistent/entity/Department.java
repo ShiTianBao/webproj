@@ -1,38 +1,36 @@
 package com.szhw.webproj.persistent.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * @author HJF
- * @date 2018/12/6 15:02
+ * @date 2018/12/11 13:58
  */
 @Entity
 public class Department {
-    private int id;
-    private String name;
+    private Integer id;
+    private String depName;
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
+    @Column(name = "dep_name")
+    public String getDepName() {
+        return depName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDepName(String depName) {
+        this.depName = depName;
     }
 
     @Override
@@ -41,11 +39,11 @@ public class Department {
         if (o == null || getClass() != o.getClass()) return false;
         Department that = (Department) o;
         return id == that.id &&
-                Objects.equals(name, that.name);
+                Objects.equals(depName, that.depName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, depName);
     }
 }

@@ -1,9 +1,11 @@
 package com.szhw.webproj.controller;
 
+import com.szhw.webproj.common.GlobalConstant;
 import com.szhw.webproj.common.RESTResult;
 import com.szhw.webproj.persistent.entity.Message;
 import com.szhw.webproj.persistent.repository.MessageRepository;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +22,16 @@ import java.util.List;
 public class MessageController {
     @Resource
     MessageRepository messageRepository;
+
+    @GetMapping("/list")
+    public RESTResult listMessage() {
+        RESTResult result = new RESTResult();
+        List<Message> messageList = messageRepository.findAll(Sort.by(
+                Sort.Order.asc("is_read"),
+                Sort.Order.desc("send_date")));
+        result.setData(messageList);
+        return result;
+    }
 
     @GetMapping("/get")
     public RESTResult getMessage(Integer recvId) {

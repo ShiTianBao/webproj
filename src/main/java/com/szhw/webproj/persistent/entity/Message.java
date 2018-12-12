@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 @Entity
 public class Message {
-    private int id;
+    private Integer id;
     private Byte isRead;
     private String message;
     private Integer recvId;
@@ -20,11 +20,11 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

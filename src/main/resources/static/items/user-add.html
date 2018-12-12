@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>新增菜单</title>
+    <title>添加用户</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -12,35 +12,27 @@
 <body>
 <form class="layui-form">
     <div class="layui-form-item">
-        <label class="layui-form-label">父菜单</label>
+        <label class="layui-form-label">账号</label>
         <div class="layui-input-inline">
-            <select name="fatherId" id="select" lay-verify="required">
-                <option value="0">顶级菜单</option>
-            </select>
+            <input type="text" name="account" placeholder="" autocomplete="off" class="layui-input"/>
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">URL</label>
+        <label class="layui-form-label">姓名</label>
         <div class="layui-input-inline">
-            <input id="url" type="text" name="url" placeholder="(顶级菜单无URL)"
-                   autocomplete="off"
-                   class="layui-input">
+            <input type="text" name="username" placeholder="" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">名称</label>
+        <label class="layui-form-label">部门</label>
         <div class="layui-input-inline">
-            <input type="text" name="menuName" required lay-verify="required" placeholder=""
-                   autocomplete="off"
-                   class="layui-input">
+            <select name="departmentId" id="dep_select"></select>
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">图标</label>
+        <label class="layui-form-label">角色</label>
         <div class="layui-input-inline">
-            <input type="text" name="icon" required lay-verify="required" placeholder=""
-                   autocomplete="off"
-                   class="layui-input">
+            <select name="roleId" id="role_select"></select>
         </div>
     </div>
     <div class="layui-form-item">
@@ -48,40 +40,52 @@
             <button class="layui-btn" lay-submit lay-filter="btn_submit">立即提交</button>
         </div>
     </div>
-    <input type="hidden" name="sortIndex" value="0"/>
 </form>
 <script src="../layUI/frame/layui/layui.js"></script>
 <script src="../js/jquery.min.js"></script>
 <script type="text/javascript">
-    if (window.location.href.indexOf('8080') === -1) {
+    if (!localStorage.host) {
         localStorage.host = 'http://localhost:8080';
-    } else {
-        localStorage.host = '';
     }
 </script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax(localStorage.host + '/menu/get', {
-            method: "GET",
-            success: function (data) {
-                console.log(data);
-                for (var i = 0, len = data.length; i < len; i++) {
-                    var item = data[i];
-                    console.log("<option value='" + item.id + "'>" + item.menuName + "</option>");
-                    $('#select').append("<option value='" + item.id + "'>" + item.menuName + "</option>");
+    function getRoles() {
+        return new Promise(((resolve) => {
+            $.ajax(localStorage.host + '/role/list', {
+                method: "GET",
+                success: function (data) {
+                    console.log('getRoles', data);
+                    resolve(data.data);
                 }
-                renderForm();
-            },
-            fail: function () {
-                console.log("GG");
-            }
-        });
-        $('#select').change(function (event) {
-            console.log('event', event);
-            var val = $(this).val();
-            if (val === '0') {
-                console.log('不能方url');
-            }
+            });
+        }));
+    }
+
+    function getDeps() {
+        return new Promise(((resolve) => {
+            $.ajax(localStorage.host + '/department/list', {
+                method: "GET",
+                success: function (data) {
+                    console.log('getDeps', data);
+                    resolve(data.data);
+                }
+            });
+        }));
+    }
+
+    $(document).ready(function () {
+        Promise.all([getDeps(), getRoles()]).then((result) => {
+            console.log('result', result);
+            var deps = result[0], roles = result[1];
+            deps.forEach((dep)=>{
+                console.log("<option value='" + dep.id + "'>" + dep.depName + "</option>");
+                $('#dep_select').append("<option value='" + dep.id + "'>" + dep.depName + "</option>");
+            });
+            roles.forEach((role)=>{
+                console.log("<option value='" + role.id + "'>" + role.roleName + "</option>");
+                $('#role_select').append("<option value='" + role.id + "'>" + role.roleName + "</option>");
+            });
+            renderForm();
         });
     });
 
@@ -97,7 +101,7 @@
                     data: data.field,
                     success: function (data) {
                         if (data.code === 0) {
-                            layer.msg('添加成功', {icon: 1});
+                            layer.msg('添加成功', {icon: 1})
                         } else {
                             layer.msg(data.message, {icon: 2});
                         }
@@ -105,6 +109,7 @@
                         layer.msg('添加失败', {icon: 2});
                     }
                 });
+
                 /**
                  * 必须return false；否则会刷新页面。真滴坑
                  */

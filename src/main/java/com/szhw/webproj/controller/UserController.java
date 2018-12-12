@@ -13,11 +13,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,9 +39,9 @@ public class UserController {
         RESTResult result = new RESTResult();
         List<User> userList = userRepository.findAll();
         Role tmpRole = new Role();
-        tmpRole.setName("无");
+        tmpRole.setRoleName("无");
         Department tmpDepartment = new Department();
-        tmpDepartment.setName("无");
+        tmpDepartment.setDepName("无");
         List<UserTo> userToList = userList.stream()
                 .map(user -> {
                     Role role = new Role();
@@ -53,11 +51,11 @@ public class UserController {
                     //设置role
                     role.setId(user.getRoleId());
                     Optional<Role> roleOptional = roleRepository.findOne(Example.of(role));
-                    userTo.setRole(roleOptional.orElse(tmpRole).getName());
+                    userTo.setRole(roleOptional.orElse(tmpRole).getRoleName());
                     //设置dep
                     department.setId(user.getDepartmentId());
                     Optional<Department> departmentOptional = departmentRepository.findOne(Example.of(department));
-                    userTo.setDepartment(departmentOptional.orElse(tmpDepartment).getName());
+                    userTo.setDepartment(departmentOptional.orElse(tmpDepartment).getDepName());
                     return userTo;
                 }).collect(Collectors.toList());
         result.setData(userToList);
