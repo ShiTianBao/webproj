@@ -1,7 +1,7 @@
 package com.szhw.webproj.controller;
 
 import com.szhw.webproj.common.GlobalConstant;
-import com.szhw.webproj.common.RESTResult;
+import com.szhw.webproj.common.CommonResult;
 import com.szhw.webproj.persistent.entity.Department;
 import com.szhw.webproj.persistent.repository.DepartmentRepository;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author HJF
@@ -23,15 +22,15 @@ public class DepartmentController implements GlobalConstant {
     DepartmentRepository departmentRepository;
 
     @GetMapping("/list")
-    public RESTResult listDepartments() {
-        RESTResult result = new RESTResult();
+    public CommonResult listDepartments() {
+        CommonResult result = new CommonResult();
         result.setData(departmentRepository.findAll());
         return result;
     }
 
     @PostMapping("/add")
-    public RESTResult addDep(Department department) {
-        RESTResult result = new RESTResult();
+    public CommonResult addDep(Department department) {
+        CommonResult result = new CommonResult();
         if (department.getDepName() == null) {
             result.setCode(CODE_PARAM_MISS);
             result.setMessage("参数缺失");
@@ -43,8 +42,8 @@ public class DepartmentController implements GlobalConstant {
     }
 
     @PostMapping("/delete")
-    public RESTResult delDep(Integer id) {
-        RESTResult result = new RESTResult();
+    public CommonResult delDep(Integer id) {
+        CommonResult result = new CommonResult();
         if (id == null) {
             result.setCode(CODE_PARAM_MISS);
             result.setMessage("参数缺失");

@@ -63,7 +63,7 @@
 
     function getDeps() {
         return new Promise(((resolve) => {
-            $.ajax(localStorage.host + '/department/list', {
+            $.ajax(localStorage.host + '/dep/list', {
                 method: "GET",
                 success: function (data) {
                     console.log('getDeps', data);

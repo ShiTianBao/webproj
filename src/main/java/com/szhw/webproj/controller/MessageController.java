@@ -1,7 +1,6 @@
 package com.szhw.webproj.controller;
 
-import com.szhw.webproj.common.GlobalConstant;
-import com.szhw.webproj.common.RESTResult;
+import com.szhw.webproj.common.CommonResult;
 import com.szhw.webproj.persistent.entity.Message;
 import com.szhw.webproj.persistent.repository.MessageRepository;
 import org.springframework.data.domain.Example;
@@ -24,8 +23,8 @@ public class MessageController {
     MessageRepository messageRepository;
 
     @GetMapping("/list")
-    public RESTResult listMessage() {
-        RESTResult result = new RESTResult();
+    public CommonResult listMessage() {
+        CommonResult result = new CommonResult();
         List<Message> messageList = messageRepository.findAll(Sort.by(
                 Sort.Order.asc("is_read"),
                 Sort.Order.desc("send_date")));
@@ -34,13 +33,13 @@ public class MessageController {
     }
 
     @GetMapping("/get")
-    public RESTResult getMessage(Integer recvId) {
+    public CommonResult getMessage(Integer recvId) {
         Message msg = new Message();
         msg.setRecvId(recvId);
         // 默认取得未读消息
         msg.setIsRead((byte) 0);
         List<Message> messageList = messageRepository.findAll(Example.of(msg));
-        RESTResult ret = new RESTResult();
+        CommonResult ret = new CommonResult();
         ret.setData(messageList);
         return ret;
     }

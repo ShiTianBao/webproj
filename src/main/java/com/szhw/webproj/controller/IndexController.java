@@ -1,7 +1,7 @@
 package com.szhw.webproj.controller;
 
+import com.szhw.webproj.common.CommonResult;
 import com.szhw.webproj.common.GlobalConstant;
-import com.szhw.webproj.common.RESTResult;
 import com.szhw.webproj.persistent.entity.User;
 import com.szhw.webproj.persistent.repository.UserRepository;
 import org.springframework.data.domain.Example;
@@ -41,8 +41,8 @@ public class IndexController implements GlobalConstant {
 
     @PostMapping("/login")
     @ResponseBody
-    public RESTResult login(User user, HttpSession session) {
-        RESTResult result = new RESTResult();
+    public CommonResult login(User user, HttpSession session) {
+        CommonResult result = new CommonResult();
         User verifyUser = new User();
         verifyUser.setAccount(user.getAccount());
         Optional<User> userOptional = userRepository.findOne(Example.of(verifyUser));

@@ -33,7 +33,11 @@ function addMainMenu(parent, name, icon = '') {
     var span = document.createElement('span');
     span.innerText = name;
     var i = document.createElement('i');
-    i.className = 'layui-icon ' + icon;
+    if (icon.startsWith('fa')) {
+        i.className = 'fa ' + icon + ' fa-fw';
+    } else {
+        i.className = 'layui-icon ' + icon;
+    }
     //a中添加i
     a.appendChild(i);
     a.appendChild(span);
@@ -57,7 +61,11 @@ function addChildMenu(parent, name = '', url = '', icon = '') {
     var span = document.createElement('span');
     span.innerText = name;
     var i = document.createElement('i');
-    i.className = 'layui-icon ' + icon;
+    if (icon.startsWith('fa')) {
+        i.className = 'fa ' + icon + ' fa-fw';
+    } else {
+        i.className = 'layui-icon ' + icon;
+    }
     a.appendChild(i);
     a.appendChild(span);
     dd.appendChild(a);

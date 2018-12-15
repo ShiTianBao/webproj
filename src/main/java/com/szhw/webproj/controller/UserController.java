@@ -1,7 +1,7 @@
 package com.szhw.webproj.controller;
 
 
-import com.szhw.webproj.common.RESTResult;
+import com.szhw.webproj.common.CommonResult;
 import com.szhw.webproj.persistent.entity.Department;
 import com.szhw.webproj.persistent.entity.Role;
 import com.szhw.webproj.persistent.entity.User;
@@ -35,8 +35,8 @@ public class UserController {
     DepartmentRepository departmentRepository;
 
     @GetMapping("/list")
-    public RESTResult userList() {
-        RESTResult result = new RESTResult();
+    public CommonResult userList() {
+        CommonResult result = new CommonResult();
         List<User> userList = userRepository.findAll();
         Role tmpRole = new Role();
         tmpRole.setRoleName("无");
@@ -63,15 +63,15 @@ public class UserController {
     }
 
     @GetMapping("/add")
-    public RESTResult addUser(User user) {
-        RESTResult result = new RESTResult();
+    public CommonResult addUser(User user) {
+        CommonResult result = new CommonResult();
         userRepository.save(user);
         return result;
     }
 
     @GetMapping("/update")
-    public RESTResult updateUser(User user) {
-        RESTResult result = new RESTResult();
+    public CommonResult updateUser(User user) {
+        CommonResult result = new CommonResult();
         userRepository.saveAndFlush(user);
         return result;
     }

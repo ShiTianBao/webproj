@@ -6,12 +6,12 @@ package com.szhw.webproj.common;
  * @author HJF
  * @date 2018/11/16 19:16
  */
-public class RESTResult {
+public class CommonResult {
     private Integer code = 0;
     private String message = "success";
     private Object data;
 
-    public RESTResult() {
+    public CommonResult() {
     }
 
     public Integer getCode() {

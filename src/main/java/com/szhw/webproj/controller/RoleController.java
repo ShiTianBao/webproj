@@ -1,7 +1,7 @@
 package com.szhw.webproj.controller;
 
+import com.szhw.webproj.common.CommonResult;
 import com.szhw.webproj.common.GlobalConstant;
-import com.szhw.webproj.common.RESTResult;
 import com.szhw.webproj.persistent.entity.Role;
 import com.szhw.webproj.persistent.repository.RoleRepository;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author HJF
@@ -23,15 +22,15 @@ public class RoleController implements GlobalConstant {
     RoleRepository roleRepository;
 
     @GetMapping("/list")
-    public RESTResult listRoles() {
-        RESTResult result = new RESTResult();
+    public CommonResult listRoles() {
+        CommonResult result = new CommonResult();
         result.setData(roleRepository.findAll());
         return result;
     }
 
     @PostMapping("/add")
-    public RESTResult addRole(Role role) {
-        RESTResult result = new RESTResult();
+    public CommonResult addRole(Role role) {
+        CommonResult result = new CommonResult();
         if (role.getRoleName() == null) {
             result.setCode(CODE_PARAM_MISS);
             result.setMessage("参数缺失");
@@ -42,8 +41,8 @@ public class RoleController implements GlobalConstant {
     }
 
     @PostMapping("/delete")
-    public RESTResult deleteRole(Integer id) {
-        RESTResult result = new RESTResult();
+    public CommonResult deleteRole(Integer id) {
+        CommonResult result = new CommonResult();
         if (id == null) {
             result.setCode(CODE_PARAM_MISS);
             result.setMessage("参数缺失");

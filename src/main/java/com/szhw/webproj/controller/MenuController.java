@@ -1,7 +1,7 @@
 package com.szhw.webproj.controller;
 
+import com.szhw.webproj.common.CommonResult;
 import com.szhw.webproj.common.GlobalConstant;
-import com.szhw.webproj.common.RESTResult;
 import com.szhw.webproj.persistent.entity.to.MainMenu;
 import com.szhw.webproj.persistent.entity.Menu;
 import com.szhw.webproj.persistent.repository.MenuRepository;
@@ -60,24 +60,24 @@ public class MenuController implements GlobalConstant {
     }
 
     @GetMapping("/list")
-    public RESTResult listMenu() {
-        RESTResult result = new RESTResult();
+    public CommonResult listMenu() {
+        CommonResult result = new CommonResult();
         result.setData(menuRepository.findAll());
         return result;
     }
 
     @PostMapping("/add")
     @ResponseBody
-    public RESTResult addMenu(Menu menu) {
-        RESTResult result = new RESTResult();
+    public CommonResult addMenu(Menu menu) {
+        CommonResult result = new CommonResult();
         menuRepository.saveAndFlush(menu);
         return result;
     }
 
     @GetMapping("/delete")
     @ResponseBody
-    public RESTResult deleteMenu(Integer id) {
-        RESTResult result = new RESTResult();
+    public CommonResult deleteMenu(Integer id) {
+        CommonResult result = new CommonResult();
         if (null == id) {
             result.setCode(CODE_PARAM_MISS);
             result.setMessage("参数缺失");
@@ -85,5 +85,10 @@ public class MenuController implements GlobalConstant {
         }
         menuRepository.deleteById(id);
         return result;
+    }
+
+    @PostMapping("/modify")
+    public CommonResult modifyMenu(Menu menu){
+        return addMenu(menu);
     }
 }

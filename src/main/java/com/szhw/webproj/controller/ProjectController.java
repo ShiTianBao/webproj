@@ -1,13 +1,11 @@
 package com.szhw.webproj.controller;
 
-import com.szhw.webproj.persistent.entity.Project;
+import com.szhw.webproj.common.GlobalConstant;
 import com.szhw.webproj.persistent.repository.ProjectRepository;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Optional;
 
 /**
  * @author HJF
@@ -15,18 +13,27 @@ import java.util.Optional;
  */
 @RequestMapping("/project")
 @RestController
-public class ProjectController{
+public class ProjectController implements GlobalConstant {
     @Resource
     ProjectRepository projectRepository;
 
-    @GetMapping("/get")
-    public Project getProject(Integer id){
-        Optional<Project> project = projectRepository.findById(id);
-        return project.orElse(null);
-    }
+//    @GetMapping("/list")
+//    public CommonResult listUserProject(HttpSession session) {
+//        CommonResult result = new CommonResult();
+//        User user = (User) session.getAttribute(SESSION_ATTR_KEY);
+//        List<ProjectTo> projectToList = projectRepository.listUserProject(user.getId());
+//        result.setData(projectToList);
+//        return result;
+//    }
 
-    @GetMapping("/project")
-    public Project insertProject(Project project){
-       return projectRepository.save(project);
-    }
+//    @GetMapping("/get")
+//    public Project getProject(Integer id) {
+//        Optional<Project> project = projectRepository.findById(id);
+//        return project.orElse(null);
+//    }
+//
+//    @GetMapping("/project")
+//    public Project insertProject(Project project) {
+//        return projectRepository.save(project);
+//    }
 }
