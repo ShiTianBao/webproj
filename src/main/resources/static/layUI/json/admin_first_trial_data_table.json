@@ -1,0 +1,40 @@
+{
+  "code": 0,
+  "msg": "",
+  "count": 1000,
+  "data": [
+    {
+      "id": 1,
+      "project_name": "基于机器学习的验证码识别",
+      "header_name": "万杰",
+      "number_count": "3",
+      "level": "校级一级",
+      "file" : "<a href='#'>点击下载</a>",
+      "score" : "98",
+      "state" : "立项评审完成",
+      "right" : "<button class='layui-btn' type='button'>是否立项</button>"
+    },
+    {
+      "id": 2,
+      "project_name": "基于行为检测的防作弊系统",
+      "header_name": "陈武",
+      "number_count": "4",
+      "level": "校级一级",
+      "file" : "<a href='#'>点击下载</a>",
+      "state" : "等待初审",
+      "score" : "未评审",
+      "right" : "<button class='layui-btn' type='button'>是否通过</button>"
+    },
+    {
+      "id": 3,
+      "project_name": "相对论在量子计算机中的应用",
+      "header_name": "钱帅",
+      "number_count": "4",
+      "level": "校级一级",
+      "file" : "<a href='#'>点击下载</a>",
+      "state" : "初审通过",
+      "score" : "未评审",
+      "right" : "<button class='layui-btn' type='button'>分配专家</button>"
+    }
+  ]
+}
