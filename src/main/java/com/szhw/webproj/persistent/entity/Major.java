@@ -8,9 +8,9 @@ import java.util.Objects;
  * @date 2018/12/15 10:59
  */
 @Entity
-public class Specialty {
+public class Major {
     private Integer id;
-    private String specialty;
+    private String major;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,26 +24,26 @@ public class Specialty {
     }
 
     @Basic
-    @Column(name = "specialty")
-    public String getSpecialty() {
-        return specialty;
+    @Column(name = "major")
+    public String getMajor() {
+        return major;
     }
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
+    public void setMajor(String specialty) {
+        this.major = specialty;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Specialty specialty1 = (Specialty) o;
-        return Objects.equals(id, specialty1.id) &&
-                Objects.equals(specialty, specialty1.specialty);
+        Major major1 = (Major) o;
+        return Objects.equals(id, major1.id) &&
+                Objects.equals(major, major1.major);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, specialty);
+        return Objects.hash(id, major);
     }
 }

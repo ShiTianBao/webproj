@@ -1,8 +1,8 @@
 package com.szhw.webproj.controller;
 
 import com.szhw.webproj.common.CommonResult;
-import com.szhw.webproj.persistent.entity.Specialty;
-import com.szhw.webproj.persistent.repository.SpecialtyRepository;
+import com.szhw.webproj.persistent.entity.Major;
+import com.szhw.webproj.persistent.repository.MajorRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,16 +15,16 @@ import java.util.List;
  * @date 2018/12/15 14:28
  */
 @RestController
-@RequestMapping("/specialty")
-public class SpecialtyController {
+@RequestMapping("/major")
+public class MajorController {
     @Resource
-    SpecialtyRepository specialtyRepository;
+    MajorRepository majorRepository;
 
     @GetMapping("/list")
     public CommonResult listSpecialties() {
         CommonResult result = new CommonResult();
-        List<Specialty> specialtyList = specialtyRepository.findAll();
-        result.setData(specialtyList);
+        List<Major> majorList = majorRepository.findAll();
+        result.setData(majorList);
         return result;
     }
 }

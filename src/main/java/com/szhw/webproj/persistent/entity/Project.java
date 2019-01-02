@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * @author HJF
- * @date 2018/12/14 18:50
+ * @date 2018/12/15 19:51
  */
 @Entity
 public class Project {
@@ -16,7 +16,7 @@ public class Project {
     private String phone;
     private Integer levelId;
     private Integer stateId;
-    private Integer specialtyId;
+    private Integer majorId;
     private String promise;
     private Integer score;
     private String comment;
@@ -93,13 +93,13 @@ public class Project {
     }
 
     @Basic
-    @Column(name = "specialty_id")
-    public Integer getSpecialty() {
-        return specialtyId;
+    @Column(name = "major_id")
+    public Integer getMajorId() {
+        return majorId;
     }
 
-    public void setSpecialty(Integer specialty) {
-        this.specialtyId = specialty;
+    public void setMajorId(Integer majorId) {
+        this.majorId = majorId;
     }
 
     @Basic
@@ -137,14 +137,14 @@ public class Project {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Project project = (Project) o;
-        return id.equals(project.id) &&
+        return Objects.equals(id, project.id) &&
                 Objects.equals(projectName, project.projectName) &&
                 Objects.equals(headerId, project.headerId) &&
                 Objects.equals(email, project.email) &&
                 Objects.equals(phone, project.phone) &&
                 Objects.equals(levelId, project.levelId) &&
                 Objects.equals(stateId, project.stateId) &&
-                Objects.equals(specialtyId, project.specialtyId) &&
+                Objects.equals(majorId, project.majorId) &&
                 Objects.equals(promise, project.promise) &&
                 Objects.equals(score, project.score) &&
                 Objects.equals(comment, project.comment);
@@ -152,6 +152,6 @@ public class Project {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, projectName, headerId, email, phone, levelId, stateId, specialtyId, promise, score, comment);
+        return Objects.hash(id, projectName, headerId, email, phone, levelId, stateId, majorId, promise, score, comment);
     }
 }

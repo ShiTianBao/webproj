@@ -6,6 +6,8 @@ package com.szhw.webproj.common;
  */
 public interface GlobalConstant {
     int ID_MENU_FATHER = 0;
+    int PROJECT_STATE_WAITE_FIRST_CHECK = 10;
+    int PROJECT_STATE_NOT_SUBMIT = 0;
 
     String SESSION_ATTR_KEY = "USER";
 
@@ -13,5 +15,6 @@ public interface GlobalConstant {
 
     int CODE_USER_NOT_FOUND = 101;
     int CODE_USER_PASSWORD_WRONG = 102;
+    int CODE_USER_NOT_LOGIN = 103;
 
 }

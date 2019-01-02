@@ -12,6 +12,7 @@ import com.szhw.webproj.persistent.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -62,7 +63,7 @@ public class UserController {
         return result;
     }
 
-    @GetMapping("/add")
+    @PostMapping("/add")
     public CommonResult addUser(User user) {
         CommonResult result = new CommonResult();
         userRepository.save(user);

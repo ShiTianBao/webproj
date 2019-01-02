@@ -32,24 +32,28 @@
     <div class="layui-form-item">
         <label class="layui-form-label">申报级别</label>
         <div class="layui-input-inline">
-            <select name="levelId" id="level_select" required lay-verify="required"></select>
+            <select name="levelId" id="level_select"></select>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">所属专业</label>
-        <div class="layui-input-inline" required lay-verify="required">
-            <select name="specialtyId" id="specialty_select"></select>
+        <div class="layui-input-inline">
+            <select name="majorId" id="major_select"></select>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">立项承诺</label>
-        <div class="layui-input-inline" required lay-verify="required">
-            <textarea type="text" name="promise" autocomplete="off" class="layui-input"></textarea>
+        <div class="layui-input-inline">
+            <textarea type="text" name="promise" autocomplete="off" class="layui-textarea" required
+                      lay-verify="required"></textarea>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class=" layui-form-item">
         <div class="layui-input-inline">
-            <button class="layui-btn" lay-submit lay-filter="btn_submit">立即提交</button>
+            <button class="layui-btn" lay-submit lay-filter="btn_save">保存</button>
+        </div>
+        <div class="layui-input-inline">
+            <button class="layui-btn" lay-submit lay-filter="btn_submit">提交</button>
         </div>
     </div>
 </form>
@@ -65,7 +69,7 @@
 <script type="text/javascript">
     function getSpecialty() {
         return new Promise((resolve => {
-            $.ajax(localStorage.host + '/specialty/list', {
+            $.ajax(localStorage.host + '/major/list', {
                 method: "GET",
                 success: function (res) {
                     console.log(res);
@@ -92,12 +96,12 @@
 
     $(document).ready(function () {
         Promise.all([getSpecialty(), getLevel()]).then(function (results) {
-            var specialties = results[0],
+            var majors = results[0],
                 levels = results[1];
-            for (var i = 0, len = specialties.length; i < len; i++) {
-                var item = specialties[i];
+            for (var i = 0, len = majors.length; i < len; i++) {
+                var item = majors[i];
                 console.log("<option value='" + item.id + "'>" + item.specialty + "</option>");
-                $('#specialty_select').append("<option value='" + item.id + "'>" + item.specialty + "</option>");
+                $('#major_select').append("<option value='" + item.id + "'>" + item.major + "</option>");
             }
             for (var i = 0, len = levels.length; i < len; i++) {
                 var item = levels[i];
@@ -115,17 +119,17 @@
                 layer = layui.layer;
             form.on('submit(btn_submit)', function (data) {
                 console.log(data);
-                $.ajax(localStorage.host + '/project/add', {
+                $.ajax(localStorage.host + '/project/submit', {
                     method: "POST",
                     data: data.field,
                     success: function (data) {
                         if (data.code === 0) {
-                            layer.msg('添加成功', {icon: 1});
+                            layer.msg('提交成功', {icon: 1});
                         } else {
                             layer.msg(data.message, {icon: 2});
                         }
                     }, fail: function () {
-                        layer.msg('添加失败', {icon: 2});
+                        layer.msg('网络错误', {icon: 2});
                     }
                 });
                 /**
@@ -133,6 +137,25 @@
                  */
                 return false;
             });
+            form.on('submit(btn_save)', function (data) {
+                $.ajax(localStorage.host + '/project/save', {
+                    method: "POST",
+                    data: data.field,
+                    success: function (data) {
+                        if (data.code === 0) {
+                            layer.msg('保存成功', {icon: 1});
+                        } else {
+                            layer.msg(data.message, {icon: 2});
+                        }
+                    }, fail: function () {
+                        layer.msg('网络错误', {icon: 2});
+                    }
+                });
+                /**
+                 * 必须return false；否则会刷新页面。真滴坑
+                 */
+                return false;
+            })
         });
     }
 </script>
