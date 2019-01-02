@@ -1,0 +1,27 @@
+{
+  "code": 0,
+  "msg": "",
+  "count": 1000,
+  "data": [
+    {
+      "id": 1,
+      "project_name": "基于机器学习的验证码识别",
+      "header_name": "万杰",
+      "number_count": "3",
+      "level": "校级一级",
+      "file" : "<button id='file1' class='layui-btn' type='button'>上传</button>",
+      "score" : "98",
+      "state" : "中期检查通过"
+    },
+    {
+      "id": 2,
+      "project_name": "基于行为检测的防作弊系统",
+      "header_name": "万杰",
+      "number_count": "4",
+      "level": "校级一级",
+      "file" : "已上传",
+      "score" : "85",
+      "state" : "已立项"
+    }
+  ]
+}
