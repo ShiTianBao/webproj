@@ -1,8 +1,8 @@
 package com.shitianbao.webproj.controller;
 
 import com.shitianbao.webproj.common.CommonResult;
+import com.szhw.webproj.persistent.entity.Project;
 import com.szhw.webproj.persistent.entity.User;
-import com.szhw.webproj.persistent.entity.to.ProjectTo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -15,7 +15,7 @@ public class ProjectDeclareController {
 
     @PostMapping("/declare")
     @ResponseBody
-    public CommonResult projectDeclare(HttpSession session, ProjectTo pt) {
+    public CommonResult projectDeclare(HttpSession session, Project pt) {
         CommonResult cm = new CommonResult();
         System.out.println("ok");
         System.out.println(pt.toString());

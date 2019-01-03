@@ -4,7 +4,6 @@ import com.szhw.webproj.common.CommonResult;
 import com.szhw.webproj.common.GlobalConstant;
 import com.szhw.webproj.persistent.entity.Project;
 import com.szhw.webproj.persistent.entity.User;
-import com.szhw.webproj.persistent.entity.to.ProjectTo;
 import com.szhw.webproj.persistent.repository.ProjectRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,14 +24,14 @@ public class ProjectController implements GlobalConstant {
     @Resource
     ProjectRepository projectRepository;
 
-//    @GetMapping("/list")
-//    public CommonResult listUserProject(HttpSession session) {
-//        CommonResult result = new CommonResult();
-//        User user = (User) session.getAttribute(SESSION_ATTR_KEY);
-//        List<ProjectTo> projectToList = projectRepository.listUserProject(user.getId());
-//        result.setData(projectToList);
-//        return result;
-//    }
+    @GetMapping("/list")
+    public CommonResult listUserProject(HttpSession session) {
+        CommonResult result = new CommonResult();
+        User user = (User) session.getAttribute(SESSION_ATTR_KEY);
+        List<Project> projectToList = projectRepository.listUserProject(user.getId());
+        result.setData(projectToList);
+        return result;
+    }
 
     //    @GetMapping("/get")
 //    public Project getProject(Integer id) {
