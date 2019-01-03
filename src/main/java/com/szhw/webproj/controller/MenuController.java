@@ -2,17 +2,19 @@ package com.szhw.webproj.controller;
 
 import com.szhw.webproj.common.CommonResult;
 import com.szhw.webproj.common.GlobalConstant;
+import com.szhw.webproj.persistent.entity.Privilege;
+import com.szhw.webproj.persistent.entity.User;
 import com.szhw.webproj.persistent.entity.to.MainMenu;
 import com.szhw.webproj.persistent.entity.Menu;
 import com.szhw.webproj.persistent.repository.MenuRepository;
+import com.szhw.webproj.persistent.repository.PrivilegeRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 /**
  * @author HJF
@@ -24,6 +26,9 @@ public class MenuController implements GlobalConstant {
     @Resource
     MenuRepository menuRepository;
 
+    @Resource
+    PrivilegeRepository privilegeRepository;
+
     @GetMapping
     public ModelAndView menu() {
         return new ModelAndView("/mgr-item/menu-list");
@@ -34,8 +39,17 @@ public class MenuController implements GlobalConstant {
      */
     @GetMapping("/get")
     @ResponseBody
-    public List<MainMenu> getMenu() {
+    public List<MainMenu> getMenu(HttpSession session) {
+        List<Privilege> privileges = privilegeRepository.findAll();
+        User user = (User) session.getAttribute(SESSION_ATTR_KEY);
+        int roleId = user.getRoleId();
         List<Menu> resultMenuList = menuRepository.findAll();
+        Set<Integer> menuIdSet = new HashSet<>();
+        for (Privilege p : privileges) {
+            if (p.getRoleId() == roleId) {
+                menuIdSet.add(p.getMenuId());
+            }
+        }
         //所有子菜单
         HashMap<Integer, List<Menu>> childrenMap = new HashMap<>(10);
         //所有主菜单
@@ -45,7 +59,9 @@ public class MenuController implements GlobalConstant {
             if (menu.getFatherId() == ID_MENU_FATHER) {
                 MainMenu mainMenu = new MainMenu();
                 BeanUtils.copyProperties(menu, mainMenu);
-                mainMenuList.add(mainMenu);
+                if (menuIdSet.contains(menu.getId())){
+                    mainMenuList.add(mainMenu);
+                }
             } else {
                 if (!childrenMap.containsKey(menu.getFatherId())) {
                     childrenMap.put(menu.getFatherId(), new ArrayList<>(10));
@@ -88,7 +104,7 @@ public class MenuController implements GlobalConstant {
     }
 
     @PostMapping("/modify")
-    public CommonResult modifyMenu(Menu menu){
+    public CommonResult modifyMenu(Menu menu) {
         return addMenu(menu);
     }
 }
