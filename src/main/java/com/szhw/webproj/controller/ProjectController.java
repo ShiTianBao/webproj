@@ -24,14 +24,14 @@ public class ProjectController implements GlobalConstant {
     @Resource
     ProjectRepository projectRepository;
 
-    @GetMapping("/list")
-    public CommonResult listUserProject(HttpSession session) {
-        CommonResult result = new CommonResult();
-        User user = (User) session.getAttribute(SESSION_ATTR_KEY);
-        List<Project> projectToList = projectRepository.listUserProject(user.getId());
-        result.setData(projectToList);
-        return result;
-    }
+//    @GetMapping("/list")
+//    public CommonResult listUserProject(HttpSession session) {
+//        CommonResult result = new CommonResult();
+//        User user = (User) session.getAttribute(SESSION_ATTR_KEY);
+//        List<Project> projectToList = projectRepository.listUserProject(user.getId());
+//        result.setData(projectToList);
+//        return result;
+//    }
 
     //    @GetMapping("/get")
 //    public Project getProject(Integer id) {
