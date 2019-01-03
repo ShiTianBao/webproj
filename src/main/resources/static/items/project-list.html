@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>部门管理</title>
+    <title>项目管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -16,7 +16,7 @@
         <a class="layui-btn btn-add btn-default" id="btn-add" href="dep-add.html">添加</a>
     </span>
 </div>
-<table id="tb_menu" lay-filter="tb_menu"></table>
+<table id="tb_project" lay-filter="tb_project"></table>
 <script src="../layUI/frame/layui/layui.js"></script>
 <script type="text/javascript" src="../layUI/frame/static/js/vip_comm.js"></script>
 <script type="text/javascript">
@@ -46,7 +46,7 @@
                 {fixed: 'right', title: '操作', toolbar: '#barOption', width: 250} //这里的toolbar值是模板元素的选择器
             ]]
         });
-        table.on('tool(tb_menu)', function (obj) {
+        table.on('tool(tb_project)', function (obj) {
             var event = obj.event;
             var data = obj.data;
             console.log(obj);
