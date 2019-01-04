@@ -16,7 +16,7 @@
         <div class="layui-form-item" >
             <label class="layui-form-label">项目名称</label>
             <div class="layui-input-block">
-                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入项目名称" class="layui-input">
+                <input type="text" name="projectName" lay-verify="title" autocomplete="off" placeholder="请输入项目名称" class="layui-input">
             </div>
         </div>
 
@@ -41,8 +41,8 @@
                 <div class="layui-input-inline">
                     <select name="level">
                         <option value=""></option>
-                        <option value="1">校级一类</option>
-                        <option value="2">校级二类</option>
+                        <option value="校级一级">校级一类</option>
+                        <option value="校级二级">校级二类</option>
                     </select>
                 </div>
             </div>
@@ -51,8 +51,8 @@
                 <div class="layui-input-inline">
                     <select name="major" lay-verify="required" lay-search="">
                         <option value="">直接选择或搜索选择</option>
-                        <option value="1">计算机科学与技术</option>
-                        <option value="2">通信工程</option>
+                        <option value="计算机科学与技术">计算机科学与技术</option>
+                        <option value="通信工程">通信工程</option>
                     </select>
                 </div>
             </div>
@@ -75,7 +75,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">立项承诺</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+                <textarea class="layui-textarea layui-hide" name="commit" lay-verify="content" id="LAY_demo_editor"></textarea>
             </div>
         </div>
         <div class="layui-form-item">
@@ -101,6 +101,30 @@
 
 <script>
     localStorage.host = 'localhost:8080';
+</script>
+
+<script type="text/javascript">
+    var a=GetRequest();
+
+
+
+    console.log("id:"+a['id']) //打印出传过来的id
+
+
+
+
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = decodeURIComponent(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
 </script>
 
 <script>
@@ -144,19 +168,28 @@
 
         //监听提交
         form.on('submit(submit)', function(data){
+            console.log(data.field);
+
+            var a3=GetRequest();
+            var param = data.field;
+            param['projectType'] = a3['id'];
+
             $.ajax({
-                cache: true,
-                type: 'POST',
+                method: 'POST',
                 url: '/faculty/declare',
-                data: data.field,
-                async: true,
+                data: param,
                 error: function () {
                     console.log('ajax error');
                 },
                 success: function (res) {
                     console.log(res);
-
-
+                    var msg = res['msg'];
+                    if(msg === 'success'){
+                        layer.open({
+                            title: '提示'
+                            ,content: '申报成功！'
+                        });
+                    }
                 }
             });
             // layer.alert(JSON.stringify(data.field), {
@@ -179,13 +212,13 @@
         var x = InputsWrapper.length; //initlal text box count
         var FieldCount=1; //to keep track of text box added
 
-        $(AddButton).click(function (e)  //on add input button click
+        $(AddButton).click(function (e)  //on addProj input button click
         {
             if(x <= MaxInputs) //max input box allowed
             {
                 FieldCount++; //text box added increment
-                //add input box
-                $(InputsWrapper).append('<div class="layui-input-inline"> <input type="text" autocomplete="off" class="layui-input"></div>');
+                //addProj input box
+                $(InputsWrapper).append('<div class="layui-input-inline"> <input name="number'+FieldCount+'"  type="text" autocomplete="off" class="layui-input"></div>');
                 x++; //text box increment
             }else {
                 layer.open({
@@ -210,15 +243,20 @@
 <script>
     layui.use('upload', function(){
         var upload = layui.upload;
+        var a2=GetRequest();
 
         //执行实例
         var uploadInst = upload.render({
             elem: '#test1' //绑定元素
-            ,url: '/upload' //上传接口
+            ,url: '/faculty/fileUpload' //上传接口
             ,accept: 'file' //允许上传的文件类型
             ,size: 10240 //最大允许上传的文件大小
+            ,data: {id:a2['id']}
             ,done: function(res){
-                //上传完毕回调
+                layer.open({
+                    title: '提示'
+                    ,content: '上传成功！'
+                });
             }
             ,error: function(){
                 //请求异常回调

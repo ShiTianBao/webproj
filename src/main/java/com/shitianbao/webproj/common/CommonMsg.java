@@ -1,26 +1,26 @@
 package com.shitianbao.webproj.common;
 
-public class CommonResult {
+public class CommonMsg {
 
     private Integer code;
     private String msg;
     private Integer count;
     private Object data;
 
-    public CommonResult(Object data) {
+    public CommonMsg(Object data) {
         this.data = data;
         this.code = 0;
         this.msg = "success";
         this.count = 0;
     }
 
-    public CommonResult() {
+    public CommonMsg() {
         this.code = 0;
         this.msg = "success";
         this.count = 0;
     }
 
-    public CommonResult(Integer count, Object data) {
+    public CommonMsg(Integer count, Object data) {
         this.count = count;
         this.data = data;
     }
@@ -59,7 +59,7 @@ public class CommonResult {
 
     @Override
     public String toString() {
-        return "CommonResult{" +
+        return "CommonMsg{" +
                 "code=" + code +
                 ", msg='" + msg + '\'' +
                 ", count=" + count +

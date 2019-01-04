@@ -7,7 +7,13 @@
     <link rel="stylesheet" href="../frame/layui/css/layui.css">
     <link rel="stylesheet" href="../frame/static/css/style.css">
 </head>
+
 <body>
+
+<script>
+    localStorage.host = 'localhost:8080';
+</script>
+
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
     <legend>项目发布</legend>
 </fieldset>
@@ -16,47 +22,38 @@
     <form class="layui-form">
 
         <div class="layui-form-item" >
-            <label class="layui-form-label">项目名称</label>
+            <label class="layui-form-label">项目类型</label>
             <div class="layui-input-block">
-                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入项目名称" class="layui-input">
+                <input type="text" name="projectType" lay-verify="title" autocomplete="off" placeholder="请输入项目类型" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">项目级别</label>
-                <div class="layui-input-inline">
-                    <select name="level">
-                        <option value=""></option>
-                        <option value="1">校级一类</option>
-                        <option value="2">校级二类</option>
-                    </select>
-                </div>
-            </div>
+
             <div class="layui-inline">
                 <label class="layui-form-label">开始时间</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="date_begin" id="date_begin" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                    <input type="text" name="startTime" id="startTime" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">截止时间</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="date_end" id="date_end" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                    <input type="text" name="endTime" id="endTime" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
 
         <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">项目描述</label>
+            <label class="layui-form-label">申报规则</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+                <textarea name="firstRule" placeholder="请输入内容" class="layui-textarea"></textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <div class="layui-inline" style="float: right">
-                    <button class="layui-btn" lay-submit="" lay-filter="demo1">立即发布</button>
+                    <button class="layui-btn" lay-submit="" lay-filter="release">立即发布</button>
                     <button type="reset" class="layui-btn layui-btn-primary">保存</button>
                 </div>
             </div>
@@ -76,10 +73,10 @@
 
         //日期
         laydate.render({
-            elem: '#date_begin'
+            elem: '#startTime'
         });
         laydate.render({
-            elem: '#date_end'
+            elem: '#endTime'
         });
 
         //创建一个编辑器
@@ -88,8 +85,8 @@
         //自定义验证规则
         form.verify({
             title: function(value){
-                if(value.length < 5){
-                    return '标题至少得5个字符啊';
+                if(value.length < 1){
+                    return '标题不能为空';
                 }
             }
             ,pass: [/(.+){6,12}$/, '密码必须6到12位']
@@ -107,10 +104,29 @@
         });
 
         //监听提交
-        form.on('submit(demo1)', function(data){
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
+        form.on('submit(release)', function(data){
+            console.log(data.field);
+            $.ajax({
+                method: 'POST',
+                url: '/admin_platform/release',
+                data: data.field,
+                error: function () {
+                    console.log('ajax error');
+                },
+                success: function (res) {
+                    console.log(res);
+                    var msg = res['msg'];
+                    if(msg === 'success'){
+                        layer.open({
+                            title: '提示'
+                            ,content: '发布成功！'
+                        });
+                    }
+                }
             });
+             // layer.alert(JSON.stringify(data.field), {
+             //     title: '最终的提交信息'
+             // });
             return false;
         });
 
