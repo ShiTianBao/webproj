@@ -9,7 +9,7 @@
       "header_name": "万杰",
       "number_count": "3",
       "level": "校级一级",
-      "file" : "<a href='#'>点击下载</a>",
+      "file" : "<a href='D:\\files\\cover\\01.zip'>点击下载</a>",
       "score" : "98",
       "state" : "立项评审完成",
       "right" : "<button class='layui-btn' type='button'>是否立项</button>"
@@ -20,7 +20,7 @@
       "header_name": "陈武",
       "number_count": "4",
       "level": "校级一级",
-      "file" : "<a href='#'>点击下载</a>",
+      "file" : "<a href='D:\\files\\cover\\01.zip'>点击下载</a>",
       "state" : "等待初审",
       "score" : "未评审",
       "right" : "<button class='layui-btn' type='button'>是否通过</button>"
@@ -31,7 +31,7 @@
       "header_name": "钱帅",
       "number_count": "4",
       "level": "校级一级",
-      "file" : "<a href='#'>点击下载</a>",
+      "file" : "<a href='D:\\files\\cover\\01.zip'>点击下载</a>",
       "state" : "初审通过",
       "score" : "未评审",
       "right" : "<button class='layui-btn' type='button'>分配专家</button>"

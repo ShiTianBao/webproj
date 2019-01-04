@@ -60,4 +60,10 @@ public class IndexController implements GlobalConstant {
         session.setAttribute(SESSION_ATTR_KEY, verifyUser);
         return result;
     }
+
+    @GetMapping("quit")
+    public CommonResult quit(HttpSession session) {
+        session.removeAttribute(SESSION_ATTR_KEY);
+        return new CommonResult();
+    }
 }
