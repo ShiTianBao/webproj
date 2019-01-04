@@ -6,8 +6,6 @@ import java.util.Objects;
 
 /**
  * 站内消息Entity
- * @author HJF
- * @date 2018/11/26 16:28
  */
 @Entity
 public class Message {

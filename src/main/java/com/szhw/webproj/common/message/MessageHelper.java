@@ -12,9 +12,6 @@ import java.util.Optional;
 
 /**
  * 发送站内信的类
- *
- * @author HJF
- * @date 2018/11/26 16:30
  */
 @Component
 public class MessageHelper {
