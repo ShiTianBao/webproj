@@ -21,10 +21,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * @author HJF
- * @date 2018/11/16 19:14
- */
 @RestController
 @RequestMapping("/user")
 public class UserController {
