@@ -62,8 +62,8 @@ public class IndexController implements GlobalConstant {
     }
 
     @GetMapping("quit")
-    public CommonResult quit(HttpSession session) {
+    public String quit(HttpSession session) {
         session.removeAttribute(SESSION_ATTR_KEY);
-        return new CommonResult();
+        return "redirect:/";
     }
 }
