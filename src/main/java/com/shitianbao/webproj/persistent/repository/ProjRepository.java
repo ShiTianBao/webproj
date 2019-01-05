@@ -26,13 +26,13 @@ public interface ProjRepository extends JpaRepository<Proj,Integer> {
     //修改proj的中期驳回原因
     @Transactional
     @Modifying
-    @Query(value = "update proj p set p.midReason= :midReason where p.id= :id", nativeQuery = true)
+    @Query(value = "update proj p set p.mid_reason= :midReason where p.id= :id", nativeQuery = true)
     public void updateProjMidReason(@Param("midReason") String midReason, @Param("id")int id);
 
     //修改proj的结题驳回原因
     @Transactional
     @Modifying
-    @Query(value = "update proj p set p.finalReason= :finalReason where p.id= :id", nativeQuery = true)
+    @Query(value = "update proj p set p.final_reason= :finalReason where p.id= :id", nativeQuery = true)
     public void updateProjFinalReason(@Param("finalReason") String finalReason, @Param("id")int id);
 
 }

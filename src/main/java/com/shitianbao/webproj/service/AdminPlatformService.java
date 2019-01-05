@@ -66,7 +66,7 @@ public class AdminPlatformService {
 
     public CommonMsg getMidProjList() {
         CommonMsg cm = new CommonMsg();
-        List<Proj> projList = projRepository.findAllByState("已立项");
+        List<Proj> projList = projRepository.findAllByState("立项评审完成");
         cm.setData(projList);
         return cm;
     }
