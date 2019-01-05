@@ -56,4 +56,44 @@ public class AdminPlatformService {
         projRepository.updateProjState("不立项", proj.getId());
     }
 
+    public void midRule(Type type) {
+        typeRepository.updateMidRuleAndMidTime(type.getMidTime(), type.getMidRule(), type.getId());
+    }
+
+    public void finalRule(Type type) {
+        typeRepository.updateFinalRuleAndFinalTime(type.getFinalTime(), type.getFinalRule(), type.getId());
+    }
+
+    public CommonMsg getMidProjList() {
+        CommonMsg cm = new CommonMsg();
+        List<Proj> projList = projRepository.findAllByState("已立项");
+        cm.setData(projList);
+        return cm;
+    }
+
+    public void midPass(Proj proj) {
+        projRepository.updateProjState("中期检查通过", proj.getId());
+    }
+
+    public CommonMsg getFinalProjList() {
+        CommonMsg cm = new CommonMsg();
+        List<Proj> projList = projRepository.findAllByState("中期检查通过");
+        cm.setData(projList);
+        return cm;
+    }
+
+    public void finalPass(Proj proj) {
+        projRepository.updateProjState("已结题", proj.getId());
+    }
+
+    public void midRefuse(Proj proj) {
+        projRepository.updateProjState("中期检查待整改", proj.getId());
+        projRepository.updateProjMidReason(proj.getMidReason(), proj.getId());
+    }
+
+    public void finalRefuse(Proj proj) {
+        projRepository.updateProjState("结题验收待整改", proj.getId());
+        projRepository.updateProjFinalReason(proj.getFinalReason(), proj.getId());
+    }
+
 }

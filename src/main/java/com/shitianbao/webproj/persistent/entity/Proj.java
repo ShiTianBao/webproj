@@ -23,6 +23,9 @@ public class Proj {
     private String state;
     private String fileState;
     private String fileUrl;
+    private String midReason;
+    private String finalReason;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -195,26 +198,23 @@ public class Proj {
         this.fileUrl = fileUrl;
     }
 
-    @Override
-    public String toString() {
-        return "Proj{" +
-                "id=" + id +
-                ", projectType='" + projectType + '\'' +
-                ", projectName='" + projectName + '\'' +
-                ", level='" + level + '\'' +
-                ", header='" + header + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", major='" + major + '\'' +
-                ", numberCount=" + numberCount +
-                ", number1='" + number1 + '\'' +
-                ", number2='" + number2 + '\'' +
-                ", number3='" + number3 + '\'' +
-                ", number4='" + number4 + '\'' +
-                ", commit='" + commit + '\'' +
-                ", state='" + state + '\'' +
-                ", fileState='" + fileState + '\'' +
-                ", fileUrl='" + fileUrl + '\'' +
-                '}';
+    @Basic
+    @Column(name = "midReason")
+    public String getMidReason() {
+        return midReason;
+    }
+
+    public void setMidReason(String midReason) {
+        this.midReason = midReason;
+    }
+
+    @Basic
+    @Column(name = "finalReason")
+    public String getFinalReason() {
+        return finalReason;
+    }
+
+    public void setFinalReason(String finalReason) {
+        this.finalReason = finalReason;
     }
 }

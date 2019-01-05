@@ -22,6 +22,7 @@
 <!-- 表格 -->
 <div id="dateTable"></div>
 
+
 <script type="text/javascript" src="../frame/layui/layui.js"></script>
 <script type="text/javascript" src="../js/index.js"></script>
 <script type="text/javascript">
@@ -52,7 +53,7 @@
                 , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
             ]]
             , id: 'dataCheck'
-            , url: 'expert/projList'
+            , url: '/expert/projList'
             , method: 'get'
             , page: true
             , limits: [30, 60, 90, 150, 300]

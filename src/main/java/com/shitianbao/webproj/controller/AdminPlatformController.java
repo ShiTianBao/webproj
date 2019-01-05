@@ -44,8 +44,8 @@ public class AdminPlatformController {
         return cm;
     }
 
-    @PostMapping("/distribut")
-    public CommonMsg distribut(ExpertToProject expertToProject) {
+    @PostMapping("/distribute")
+    public CommonMsg distribute(ExpertToProject expertToProject) {
         adminPlatformService.addExpertToProject(expertToProject);
         adminPlatformService.distributState(expertToProject);
         return new CommonMsg();
@@ -57,9 +57,57 @@ public class AdminPlatformController {
         return new CommonMsg();
     }
 
-    @PostMapping("/makeProject")
+    @PostMapping("/unmakeProject")
     public CommonMsg unmakeProject(Proj proj) {
         adminPlatformService.unmakeProject(proj);
+        return new CommonMsg();
+    }
+
+    @PostMapping("/midRule")
+    public CommonMsg midRule(Type type) {
+        System.out.println(type);
+        adminPlatformService.midRule(type);
+        return new CommonMsg();
+    }
+
+    @PostMapping("/finalRule")
+    public CommonMsg finalRule(Type type) {
+        System.out.println(type);
+        adminPlatformService.finalRule(type);
+        return new CommonMsg();
+    }
+
+    @GetMapping("/midProjList")
+    public CommonMsg getMidProjList() {
+        return adminPlatformService.getMidProjList();
+    }
+
+    @PostMapping("/midPass")
+    public CommonMsg midPass(Proj proj) {
+        adminPlatformService.midPass(proj);
+        return new CommonMsg();
+    }
+
+    @GetMapping("/finalProjList")
+    public CommonMsg getFinalProjList() {
+        return adminPlatformService.getFinalProjList();
+    }
+
+    @PostMapping("/finalPass")
+    public CommonMsg finalPass(Proj proj) {
+        adminPlatformService.finalPass(proj);
+        return new CommonMsg();
+    }
+
+    @PostMapping("/midRefuse")
+    public CommonMsg midRefuse(Proj proj) {
+        adminPlatformService.midRefuse(proj);
+        return new CommonMsg();
+    }
+
+    @PostMapping("/finalRefuse")
+    public CommonMsg finalRefuse(Proj proj) {
+        adminPlatformService.finalRefuse(proj);
         return new CommonMsg();
     }
 

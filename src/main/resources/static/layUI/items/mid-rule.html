@@ -17,10 +17,10 @@
         <div class="layui-form-item">
             <label class="layui-form-label">选择项目</label>
             <div class="layui-input-block">
-                <select name="project-name" lay-filter="peoject-name">
+                <select name="id" lay-filter="id">
                     <option value=""></option>
-                    <option value="0">新苗杯</option>
-                    <option value="1">挑战杯</option>
+                    <option value="3">新苗杯</option>
+                    <option value="4">挑战杯</option>
                 </select>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">截止日期</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                    <input type="text" name="midTime" id="midTime" lay-verify="midTime" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">要求</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+                <textarea class="layui-textarea" name="midRule" lay-verify="midRule"></textarea>
             </div>
         </div>
         <div class="layui-form-item">
@@ -62,10 +62,7 @@
 
         //日期
         laydate.render({
-            elem: '#date'
-        });
-        laydate.render({
-            elem: '#date1'
+            elem: '#midTime'
         });
 
         //创建一个编辑器
@@ -94,8 +91,23 @@
 
         //监听提交
         form.on('submit(demo1)', function(data){
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
+            $.ajax({
+                method: 'POST',
+                url: '/admin_platform/midRule',
+                data: data.field,
+                error: function () {
+                    console.log('ajax error');
+                },
+                success: function (res) {
+                    console.log(res);
+                    var msg = res['msg'];
+                    if(msg === 'success'){
+                        layer.open({
+                            title: '提示'
+                            ,content: '提交成功！'
+                        });
+                    }
+                }
             });
             return false;
         });
